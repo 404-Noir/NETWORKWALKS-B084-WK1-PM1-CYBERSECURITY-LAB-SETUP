@@ -127,7 +127,7 @@ Adapter 1
 RAM : 8192 MB
 ```
 
-![Kali Linux VM](screenshots/3-kali-linux.png)
+![Kali Linux VM](3-screenshot-kali-linux.png)
 
 *(Optional)* A shared folder was set up to move files between the host and the VM.
 
@@ -135,13 +135,13 @@ RAM : 8192 MB
 Configured a fixed IPv4 address so the machine is easy to reference in future exercises:
 
 ```text
-IP Address : [10.0.0.2]
-Netmask    : [255.255.255.0]
-Gateway    : [10.0.0.1]
-DNS        : [8.8.8.8]
+IP Address : 10.0.0.2
+Netmask    : 255.255.255.0
+Gateway    : 10.0.0.1
+DNS        : 8.8.8.8
 ```
 
-![Kali network settings](screenshots/4-kali-network-settings.png)
+![Kali network settings](4-screenshot-kali-network-settings.png)
 
 ### Step 6 — Create a Clean Snapshot
 Once configuration was complete I took a snapshot named:
@@ -159,9 +159,9 @@ If a future exercise breaks the VM, I can roll back to this known-good baseline.
 | ✅ Test | 🧾 Command | 🎯 Expected Result | Result |
 |---|---|---|---|
 | Check IP address | `ip a` | Correct Kali IP shown | ✅ |
-| Test gateway | `ping -c 4 [10.0.0.1]` | Replies received | ✅ |
+| Test gateway | `ping -c 4 10.0.0.1` | Replies received | ✅ |
 | Test internet | `ping -c 4 8.8.8.8` | Replies received | ✅ |
-| Test DNS | `nslookup example.com` | Domain resolves | ✅ |
+| Test DNS | `nslookup google.com` | Domain resolves | ✅ |
 | Verify Nmap | `nmap --version` | Version displayed | ✅ |
 | Verify snapshot | Restore snapshot, run `ip a` | Baseline restored | ✅ |
 
@@ -172,39 +172,20 @@ If a future exercise breaks the VM, I can roll back to this known-good baseline.
 
 ## 🐞 Problems Encountered & Solutions
 
-> Keep only the problems **you actually ran into**. Real troubleshooting notes are the most valuable part of a lab write-up.
+### Problem 1 — Configuring a Separate NAT Network
+**Challenge I faced:** When setting up my Kali Linux virtual machine in Oracle VirtualBox, I noticed that I already had a NAT Network named NatNetwork. However, it was using the default configuration, which did not match the network settings I wanted for my lab. Instead of modifying the existing network, I decided to create a separate NAT Network named NatNetwork1 so that I could configure it according to my lab requirements.
 
-### Problem 1 — [Short title, e.g. VirtualBox VT-x / virtualization error]
-**Symptom:** [What went wrong, and the exact error message if you have it]
-
-**Cause:** [e.g. hardware virtualization was disabled in BIOS/UEFI]
-
-**Solution:**
-1. [Step one]
-2. [Step two]
-3. [Step three]
-
-### Problem 2 — [Short title, e.g. No internet after setting a static IP]
-**Symptom:** [...]
-
-**Cause:** [...]
-
-**Solution:**
-```bash
-# example: find your real connection name first, then modify it
-nmcli connection show
-```
+**Solution:** I created NatNetwork1 and configured its IPv4 network prefix to 10.0.0.0/24. I also enabled DHCP and IPv6 to support the network configuration required for my lab. This allowed me to keep the existing NatNetwork separate while having another network that I could configure and manage independently for my Kali Linux environment.
 
 ---
 
 ## 💡 What I Learned
 
-1. **NAT vs NAT Network** — [your own explanation]
-2. **VM networking** — [how adapters connect VMs to networks]
-3. **Static IP configuration** — [IP, netmask, gateway, DNS in Kali]
-4. **Snapshots** — take a clean one *before* risky experiments
-5. **Documentation** — screenshots, commands and troubleshooting notes make a project reproducible and professional
-
+1. **NAT vs NAT Network** — I learned that NAT allows a virtual machine to access external networks through the host's connection, while NAT Network allows multiple virtual machines connected to the same NAT Network to communicate with one another and access external networks.
+2. **VM networking** — I learned how VirtualBox network adapters connect virtual machines to different network types. Choosing the correct adapter mode is important for proper communication and internet access.
+3. **Static IP configuration** — I learned how to manually configure an IP address, subnet mask, default gateway, and DNS server in Kali Linux. In my lab, I used 10.0.0.2 as the IP address, /24 as the subnet prefix, 10.0.0.1 as the gateway, and 8.8.8.8 as the DNS server.
+4. **Snapshots** — I learned the importance of taking a snapshot of a working virtual machine before making major changes or conducting experiments. This provides a convenient way to return to a previous state if something goes wrong.
+5. **Documentation** — I learned that documenting configurations, screenshots, commands, and troubleshooting steps makes a cybersecurity project easier to understand, reproduce, and maintain.
 ---
 
 ## 🔐 Security & Ethical Use
@@ -225,4 +206,4 @@ This lab is for **education and authorized testing only**. All activity takes pl
 
 ---
 
-**Program:** [Network Walks] | **Week:** [01] | **Project:** Cybersecurity & Pentesting Lab Setup
+**Program:** Network Walks | **Week:** 01 | **Project:** Cybersecurity & Pentesting Lab Setup
