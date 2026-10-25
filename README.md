@@ -105,13 +105,13 @@ Installed VirtualBox [version] as the hypervisor.
 In **VirtualBox → Tools → Network** I created a dedicated NAT Network:
 
 ```text
-Network Name : [NatNetwork]
-IPv4 Prefix  : [10.0.0.0/24]
-DHCP         : [Enabled]
-IPv6         : [Disabled]
+Network Name : NatNetwork1
+IPv4 Prefix  : 10.0.0.0/24
+DHCP         : Enabled
+IPv6         : Enabled
 ```
 
-![NAT network settings](2-screenshot-network-settings-1.png)
+![](2-screenshot-network-settings-1.png.png)
 
 > **Why a NAT Network?** VMs on the same NAT Network can talk to each other *and* reach the internet through address translation. That is exactly what a multi-machine attacker/target lab needs. A plain "NAT" adapter keeps each VM isolated from the others.
 
@@ -121,10 +121,10 @@ Downloaded the official Kali VM from [kali.org](https://www.kali.org/get-kali/) 
 ```text
 Adapter 1
   Attached to  : NAT Network
-  Network      : [NatNetwork]
-  Adapter Type : [Intel PRO/1000 MT Desktop]
+  Network      : NatNetwork1
+  Adapter Type : Intel PRO/1000 MT Desktop
 
-RAM : [2048 MB]
+RAM : 8192 MB
 ```
 
 ![Kali Linux VM](screenshots/3-kali-linux.png)
