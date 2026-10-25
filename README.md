@@ -111,7 +111,7 @@ DHCP         : [Enabled]
 IPv6         : [Disabled]
 ```
 
-![NAT network settings](screenshots/2-nat-network-settings.png)
+![NAT network settings](2-screenshot-network-settings-1.png)
 
 > **Why a NAT Network?** VMs on the same NAT Network can talk to each other *and* reach the internet through address translation. That is exactly what a multi-machine attacker/target lab needs. A plain "NAT" adapter keeps each VM isolated from the others.
 
